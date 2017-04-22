@@ -1,0 +1,34 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
+	<script type="text/javascript">
+		var post = "some-post-slug";
+		var db = new Firebase('https://simpleblog-2a67c.firebaseio.com/'+ post + '/votes');
+		$(document).ready(function(){
+			db.on('value',function(s){
+				$('#votes').html(s.val());
+			});
+			$('#reset').on('click',function(){
+				db.set(0);
+			});
+			$('#add').on('click',function(){
+				db.transaction(
+					function(votes) { return votes + 1; },
+					function(success, data) { console.log(success); }
+				);
+			});
+		});
+	</script>
+</head>
+<body>
+	<span id="votes"></span><br><br>
+	<a href="javascript:void(0)" id="add">add</a><br/>
+	<a href="javascript:void(0)" id="reset">reset</a>
+</body>
+</html>
