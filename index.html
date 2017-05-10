@@ -9,7 +9,7 @@
 	<script type='text/javascript' src='https://static.firebase.com/v0/firebase.js'></script>
 	<script type="text/javascript">
 		var post = "some-post-slug";
-		var db = new Firebase('https://simpleblog-2a67c.firebaseio.com/'+ post + '/votes');
+		var db = new Firebase('https://url_de_la_db/'+ post + '/votes');
 		$(document).ready(function(){
 			db.on('value',function(s){
 				$('#votes').html(s.val());
